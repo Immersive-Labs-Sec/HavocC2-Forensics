@@ -35,14 +35,38 @@ Python Libraries
 
 OS Tools
 
-- tshark
+- tshark 4.x
+
+```
+sudo add-apt-repository ppa:wireshark-dev/stable
+sudo apt update
+sudo apt install --upgrade tshark
+```
 
 Caveats
 
 The script will only detect HTTP traffic or HTTPS traffic that has been decrypted for example with TLS MASTER Keys.
 
-The script can be run with the command show below. The script will attempt to detect the init request that contains the AES Key and IV, if not in the pcap then you can use the `--key` and `--iv` flags to specify the key and IV.
+The script can be run with the command show below. The script will attempt to detect the init request that contains the AES Key and IV, if not in the pcap then you can use the `--aes-key`, `--aes-iv` and `--agent-id` flags to specify the key and IV.
 
+
+### Example
+
+```
+python3 havoc-pcap-parser.py -h                                                                                                                                                               ─╯
+usage: havoc-pcap-parser.py [-h] --pcap PCAP [--aes-key AES_KEY] [--aes-iv AES_IV] [--agent-id AGENT_ID] [--save SAVE] [--magic MAGIC]
+
+Extract Havoc Traffic from a PCAP
+
+optional arguments:
+  -h, --help           show this help message and exit
+  --pcap PCAP          Path to pcap file
+  --aes-key AES_KEY    AES key
+  --aes-iv AES_IV      AES initialization vector
+  --agent-id AGENT_ID  Agent ID
+  --save SAVE          Save decrypted payloads to file
+  --magic MAGIC        Set the magic bytes marker for the Havoc C2 traffic
+```
 
 ```
 python3 havoc-pcap-parser.py --pcap Havoc-MemoryCapture.pcapng
