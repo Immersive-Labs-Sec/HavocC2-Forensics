@@ -165,7 +165,7 @@ def parse_request(http_pair, magic_bytes, save_path):
         return
 
 
-    if request_header['command_id'] == 'DEMON_INITIALIZE':
+    if request_header['command_id'] == 'DEMON_INIT':
         print("[+] Found Havoc C2")
         print(f"  [-] Agent ID: {request_header['agent_id']}")
         print(f"  [-] Magic Bytes: {request_header['magic_bytes']}")
@@ -199,10 +199,6 @@ def parse_request(http_pair, magic_bytes, save_path):
         except Exception as e:
             print(f"[!] Error parsing request body: {e}")
             return
-
-
-        if 'fd6254185e00' in hexlify(response_body).decode('ascii'):
-            print(hexlify(response_body).decode('ascii'))
 
 
         header_bytes = response_body[:12]
